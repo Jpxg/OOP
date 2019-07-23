@@ -8,14 +8,14 @@ class Game
     4.times do |enemy|
       @enemies << Player.new("Enemy#{enemy}")
     end
-    @players_index = 0 #Pour la création de nouveaux joueurs
+    @players_index = 0 #ease the new player creation
   end
 
-  def kill_player(index)
+  def kill_player(index) #clear the board
     @enemies.delete_at(index)
   end
 
-  def insert_players
+  def insert_players # add new enemies each round
     if is_still_going_on?
       if @enemies.length > @players_left
         puts "Tous les ennemies sont en vue ! 🔭"
@@ -34,7 +34,7 @@ class Game
     end
   end
 
-  def add_enemies(enemies)
+  def add_enemies(enemies) #shorten the insert_players method
     enemies.times do
       @enemies << Player.new("Enemy#{@players_index}")
       @players_index += 1
@@ -43,11 +43,11 @@ class Game
     @enemies
   end
 
-  def is_still_going_on?
+  def is_still_going_on? #true/false
     return @human_player.life_points > 0 && !@enemies.empty?
   end
 
-  def show_player
+  def show_player #show the current state of enemies
     @human_player.show_state
     puts "Il y a #{enemies.length} ennemis en vue."
     puts "Il reste #{@players_left + enemies.length} à éliminer."
@@ -79,14 +79,14 @@ class Game
     end
   end
 
-  def enemies_attack
+  def enemies_attack #each enemy is attacking hero
     if is_still_going_on?
       puts "\n\tTu es attaqué par les autres joueurs ! 🚁"
       @enemies.each { |enemy| enemy.attacks(@human_player) if @human_player.life_points > 0 }
     end
   end
 
-  def end_of_game
+  def end_of_game #Win maybe?
     if @enemies.length == 0
       puts "Victoire! ✌️ ✌️"
     elsif @human_player.life_points <= 0

@@ -6,12 +6,12 @@ class Player
     @life_points = 10
   end
 
-  def show_state
+  def show_state #state of fighters
     life_symbol = "❤️ " * @life_points
     print "#{@name} a #{@life_points} points de vie. #{life_symbol} "
   end
 
-  def attacks(player_under_attack)
+  def attacks(player_under_attack) #setting up the attacks and deaths
     print "#{self.name} attaque #{player_under_attack.name} 🗡️ "
     damage_done = compute_damage
     player_under_attack.gets_damage(damage_done)
@@ -49,7 +49,7 @@ class HumanPlayer < Player
     rand(1..6) * @weapon_level
   end
 
-  def search_weapon
+  def search_weapon #doing a search for a better weapon
     new_weapon = rand(1..6)
     if new_weapon <= 2
       puts "Tu as trouvé une arme de niveau #{new_weapon} : 🔧"
@@ -66,7 +66,7 @@ class HumanPlayer < Player
     end
   end
 
-  def search_health_pack
+  def search_health_pack #it's time to get more life, right ?
     health_pack = rand(1..6)
     puts "\tRecherche en cours... 🔎"
     case health_pack
@@ -83,6 +83,6 @@ class HumanPlayer < Player
 
   def add_life(life)
     @life_points += life
-    @life_points = 100 if @life_points > 100 #passe à 100 si plus de 100hp.
+    @life_points = 100 if @life_points > 100 #100hp max threshold
   end
 end
